@@ -1,0 +1,519 @@
+ссылка 3:
+
+1. 18
+2. 2
+3. Программа завершится с ошибкой времени выполнения: IndexOutOfRangeException
+4. nums[2][1]
+5. Практ. задание
+
+int[,,] mas = { { { 1, 2 }, { 3, 4 } }, 
+                { { 4, 5 }, { 6, 7 } }, 
+                { { 7, 8 }, { 9, 10 } }, 
+                { { 10, 11 }, { 12, 13 } } };
+
+Console.Write("{");
+for (int i = 0; i < mas.GetLength(0); i++)
+{
+    Console.Write("{");
+    for (int j = 0; j < mas.GetLength(1); j++)
+    {
+        Console.Write("{");
+        for (int k = 0; k < mas.GetLength(2); k++)
+        {
+            Console.Write(mas[i, j, k]);
+            if (k < mas.GetLength(2) - 1) Console.Write(" , ");
+        }
+        Console.Write("}");
+        if (j < mas.GetLength(1) - 1) Console.Write(" , ");
+    }
+    Console.Write("}");
+    if (i < mas.GetLength(0) - 1) Console.Write(" , ");
+}
+Console.WriteLine("}");
+Результат:
+
+{{{1 , 2} , {3 , 4}} , {{4 , 5} , {6 , 7}} , {{7 , 8} , {9 , 10}} , {{10 , 11} , {12 , 13}}}
+
+
+
+
+ссылка 4:
+
+упр 1
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введите сумму вклада: ");
+        decimal sum = Convert.ToDecimal(Console.ReadLine());
+
+        Console.Write("Введите количество месяцев: ");
+        int months = Convert.ToInt32(Console.ReadLine());
+
+        for (int i = 0; i < months; i++)
+        {
+            sum += sum * 0.07m;
+        }
+
+        Console.WriteLine($"Конечная сумма вклада: {sum:F2}");
+    }
+}
+
+
+упр 2
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введите сумму вклада: ");
+        decimal sum = Convert.ToDecimal(Console.ReadLine());
+
+        Console.Write("Введите количество месяцев: ");
+        int months = Convert.ToInt32(Console.ReadLine());
+
+        int i = 0;
+        while (i < months)
+        {
+            sum += sum * 0.07m;
+            i++;
+        }
+
+        Console.WriteLine($"Конечная сумма вклада: {sum:F2}");
+    }
+}
+
+
+упр 3
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 1; i <= 10; i++)
+        {
+            for (int j = 1; j <= 10; j++)
+            {
+                Console.Write($"{i * j,4}");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+
+
+
+
+ссылка 5:
+using System;
+
+class InteractiveNovel
+{
+    static void Main()
+    {
+
+        bool hasKey = false;
+        bool hasFlashlight = false;
+        bool knowsSecret = false;
+        int sanity = 100;
+        bool gameOver = false;
+        
+        Console.WriteLine("=== ТАЙНА ЗАБРОШЕННОГО ОСОБНЯКА ===");
+        Console.WriteLine("Вы стоите перед старым особняком в полночь. Что будете делать?\n");
+
+
+        while (true)
+        {
+            if (gameOver)
+            {
+                Console.WriteLine("\nХотите начать заново? (да/нет)");
+                string restart = Console.ReadLine().ToLower();
+                if (restart == "да")
+                {
+                    // Сброс всех переменных
+                    hasKey = false;
+                    hasFlashlight = false;
+                    knowsSecret = false;
+                    sanity = 100;
+                    gameOver = false;
+                    Console.WriteLine("\n=== НОВАЯ ИГРА ===");
+                    Console.WriteLine("Вы снова стоите перед старым особняком в полночь. Что будете делать?\n");
+                    continue;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (!hasKey && !hasFlashlight)
+            {
+                Console.WriteLine("1. Постучать в дверь");
+                Console.WriteLine("2. Осмотреть крыльцо");
+                Console.WriteLine("3. Обойти дом вокруг");
+                Console.WriteLine("4. Уйти (завершить игру)");
+                
+                string choice = Console.ReadLine();
+                
+                switch (choice)
+                {
+                    case "1":
+                        Console.WriteLine("\nВы стучите в дверь, но никто не отвечает. Кажется, дом действительно заброшен.");
+                        sanity -= 10;
+                        break;
+                    case "2":
+                        Console.WriteLine("\nПод ковриком вы находите ржавый ключ!");
+                        hasKey = true;
+                        break;
+                    case "3":
+                        Console.WriteLine("\nОбходя дом, вы замечаете открытое окно на первом этаже.");
+                        break;
+                    case "4":
+                        Console.WriteLine("\nВы решаете, что лучше не связываться с этим местом. Конец игры.");
+                        gameOver = true;
+                        continue;
+                    default:
+                        Console.WriteLine("\nПожалуйста, выберите вариант от 1 до 4.");
+                        continue;
+                }
+            }
+            
+
+            else if (hasKey && !hasFlashlight)
+            {
+                Console.WriteLine("\nТеперь у вас есть ключ. Что будете делать?");
+                Console.WriteLine("1. Попробовать открыть дверь");
+                Console.WriteLine("2. Проверить открытое окно");
+                Console.WriteLine("3. Осмотреть сарай за домом");
+                
+                string choice = Console.ReadLine();
+                
+                switch (choice)
+                {
+                    case "1":
+                        Console.WriteLine("\nКлюч подходит! Дверь со скрипом открывается.");
+                        // Переход к следующему шагу
+                        break;
+                    case "2":
+                        Console.WriteLine("\nВы залезаете через окно и оказываетесь в темной кухне.");
+                        sanity -= 15;
+                        // Переход к другому шагу
+                        break;
+                    case "3":
+                        Console.WriteLine("\nВ сарае вы находите старый, но рабочий фонарик!");
+                        hasFlashlight = true;
+                        break;
+                    default:
+                        Console.WriteLine("\nПожалуйста, выберите вариант от 1 до 3.");
+                        continue;
+                }
+            }
+else if (hasKey && hasFlashlight && !knowsSecret)
+            {
+                Console.WriteLine("\nВы внутри особняка. Включив фонарик, вы видите:");
+                Console.WriteLine("1. Лестницу на второй этаж");
+                Console.WriteLine("2. Дверь в гостиную");
+                Console.WriteLine("3. Коридор, ведущий в подвал");
+                
+                string choice = Console.ReadLine();
+                
+                switch (choice)
+                {
+                    case "1":
+                        Console.WriteLine("\nНа втором этаже вы находите старый дневник с записями...");
+                        knowsSecret = true;
+                        break;
+                    case "2":
+                        Console.WriteLine("\nВ гостиной зеркало внезапно разбивается! Ваша уверенность падает.");
+                        sanity -= 30;
+                        break;
+                    case "3":
+                        Console.WriteLine("\nСпускаясь в подвал, вы слышите странные звуки...");
+                        // Возможность найти одну из концовок
+                        if (sanity < 50)
+                        {
+                            Console.WriteLine("Вы теряете рассудок и убегаете из дома в панике. Плохая концовка #1.");
+                            gameOver = true;
+                            continue;
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("\nПожалуйста, выберите вариант от 1 до 3.");
+                        continue;
+                }
+            }
+            
+
+            else if (knowsSecret)
+            {
+                Console.WriteLine("\nИз дневника вы узнали, что в доме спрятан клад. Где будете искать?");
+                Console.WriteLine("1. В камине в гостиной");
+                Console.WriteLine("2. За картиной в холле");
+                Console.WriteLine("3. В потайной комнате за книжным шкафом");
+                
+                string choice = Console.ReadLine();
+                
+                switch (choice)
+                {
+                    case "1":
+                        Console.WriteLine("\nВы находите сундук с золотом! Хорошая концовка #1.");
+                        gameOver = true;
+                        continue;
+                    case "2":
+                        Console.WriteLine("\nЗа картиной вы находите только паука. Он вас кусает. Плохая концовка #2.");
+                        gameOver = true;
+                        continue;
+                    case "3":
+                        Console.WriteLine("\nВы находите потайную комнату, но там вас ждет призрак! Плохая концовка #3.");
+                        gameOver = true;
+                        continue;
+                    default:
+                        Console.WriteLine("\nПожалуйста, выберите вариант от 1 до 3.");
+                        continue;
+                }
+            }
+
+
+            if (sanity <= 0)
+            {
+                Console.WriteLine("\nВы полностью теряете рассудок и убегаете из дома в панике. Плохая концовка #4.");
+                gameOver = true;
+                continue;
+            }
+
+
+        }
+
+        Console.WriteLine("\nСпасибо за игру! До свидания!");
+    }
+}
+
+
+ссылка 1:
+
+Задание 1
+Дано:
+
+A = 12, B = 12
+
+Блок-схема:
+(Проверка условия A > B → нет, затем A == B → да)
+
+Ответ:
+M = "Числа равны"
+
+Задание 2
+Функция:
+
+y
+=
+{
+x
+2
++
+1
+,
+если 
+x
+≤
+0
+x
++
+1
+,
+если 
+x
+>
+0
+y={ 
+x 
+2
+ +1,
+x+1,
+​
+  
+если x≤0
+если x>0
+​
+ 
+Вычисления:
+
+а) x = 0 → 
+y
+=
+0
+2
++
+1
+=
+1
+y=0 
+2
+ +1=1
+
+б) x = 1 → 
+y
+=
+1
++
+1
+=
+2
+y=1+1=2
+
+в) x = –5 → 
+y
+=
+(
+−
+5
+)
+2
++
+1
+=
+26
+y=(−5) 
+2
+ +1=26
+
+Задание 3
+Уравнение: 
+a
+x
+2
++
+b
+x
++
+c
+=
+0
+ax 
+2
+ +bx+c=0
+
+Решение через дискриминант (D = b² – 4ac):
+
+а) a=1, b=2, c=–3
+
+D = 4 + 12 = 16 → 2 корня: 
+x
+1
+=
+1
+x 
+1
+​
+ =1, 
+x
+2
+=
+−
+3
+x 
+2
+​
+ =−3
+
+б) a=1, b=4, c=5
+
+D = 16 – 20 = –4 → нет корней
+
+в) a=3, b=–8, c=3
+
+D = 64 – 36 = 28 → 2 корня: 
+x
+1
+≈
+2.215
+x 
+1
+​
+ ≈2.215, 
+x
+2
+≈
+0.451
+x 
+2
+​
+ ≈0.451
+
+Задание 4
+Блок-схема с условиями:
+(Проверка x > y, x == y, y != 0)
+
+Ответы:
+
+а) x=0, y=1 → "x меньше y"
+
+б) x=2, y=4 → "x меньше y"
+
+в) x=6, y=0 → "Ошибка: y = 0"
+
+
+ссылка 2: 
+
+def calculator():
+    print("Добро пожаловать в простой калькулятор!")
+
+    print("\nДоступные операции:")
+    print("1. Сложение (+)")
+    print("2. Вычитание (-)")
+    print("3. Умножение (*)")
+    print("4. Деление (/)")
+    print("5. Остаток от деления (%)")
+    print("6. Инкремент (++ к первому числу)")
+    print("7. Декремент (-- от первого числа)")
+
+    operation = input("\nВыберите операцию (введите символ или номер): ").strip()
+
+    if operation in ['6', '++', 'инкремент']:
+        num = float(input("Введите число: "))
+        result = num + 1
+        print(f"Результат инкремента: {result}")
+    elif operation in ['7', '--', 'декремент']:
+        num = float(input("Введите число: "))
+        result = num - 1
+        print(f"Результат декремента: {result}")
+    else:
+        try:
+            num1 = float(input("Введите первое число: "))
+            num2 = float(input("Введите второе число: "))
+
+            if operation in ['1', '+']:
+                result = num1 + num2
+                print(f"Результат: {result}")
+            elif operation in ['2', '-']:
+                result = num1 - num2
+                print(f"Результат: {result}")
+            elif operation in ['3', '*']:
+                result = num1 * num2
+                print(f"Результат: {result}")
+            elif operation in ['4', '/']:
+                if num2 == 0:
+                    print("Ошибка: деление на ноль невозможно.")
+                else:
+                    result = num1 / num2
+                    print(f"Результат: {result}")
+            elif operation in ['5', '%']:
+                if num2 == 0:
+                    print("Ошибка: остаток от деления на ноль невозможен.")
+                else:
+                    result = num1 % num2
+                    print(f"Результат: {result}")
+            else:
+                print("Ошибка: неизвестная операция.")
+        except ValueError:
+            print("Ошибка: введено не число.")
+
+
+calculator()
